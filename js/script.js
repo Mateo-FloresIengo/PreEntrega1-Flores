@@ -3,8 +3,6 @@ let precioBebida = 2000
 let precioPostre = 5000
 
 function correr(){
-    alert("¡Bienvenido/a! Esta es nuestra carta de productos:");
-    alert("Tenemos variedad de Pizzas, Bebidas y Postres");
     
     let pedidoPizza = Number(prompt("¿Cuántas pizzas desea pedir?"))
     let buclePizza = 0
