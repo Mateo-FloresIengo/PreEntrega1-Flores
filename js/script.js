@@ -68,6 +68,7 @@ function finalizarPedido () {
     const mensaje = document.createElement("p");
     mensaje.innerText = `Muchas gracias ${nombreUsuario} por su pedido. Nos pondremos en contacto a la brevedad para entregarle sus productos.`
     mensajeFinal.appendChild(mensaje);
+    mensaje.style.cssText = "margin: 10px ; font-size: 1.5rem ; font-style: italic";
 }
 
 // Funcion para limpiar el localStorage una vez finalizado el pedido
