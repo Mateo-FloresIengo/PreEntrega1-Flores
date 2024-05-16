@@ -1,93 +1,82 @@
-//MENSAJE BIENVENIDA
-let mensajeBienvenida = alert("Bienvenido/a a Pizzeria El Jefe");
-//FUNCION PARA ACTUALIZAR EL MENSAJE DE BIENVENIDA
-function actualizarMensaje() {
-    let horaActual = new Date().getHours();
-    console.log(horaActual);
-    let mensaje;
 
-    if(horaActual < 12) {
-        mensaje = "¡Buenos dias! Hace tu pedido para disfrutar del mejor sabor de nuestras pizzas";
-    } else if(horaActual < 19) {
-        mensaje = "¡Buenas tardes! Hace tu pedido para disfrutar del mejor sabor de nuestras pizzas";
-    } else {
-        mensaje = "¡Buenas noches! Hace tu pedido para disfrutar del mejor sabor de nuestras pizzas";
-    }
-    alert(mensaje);
+// Funcion a ejecutar cuando el usuario realiza el pedido
+function guardarPedido() {
+    // Obtener los valores de los campos del formulario
+    const nombreUsuario = document.getElementById("nombre").value;
+    const telefonoUsuario = document.getElementById("telefono").value;
+    const pizzaSeleccionada = document.getElementById("selector-pizza").value;
+    const bebidaSeleccionada = document.getElementById("selector-bebida").value;
+    const postreSeleccionado = document.getElementById("selector-postre").value;
+
+    // Crear un objeto con los datos capturados
+    const pedido = {
+        nombre: nombreUsuario,
+        telefono: telefonoUsuario,
+        pizza: pizzaSeleccionada,
+        bebida: bebidaSeleccionada,
+        postre: postreSeleccionado
+    };
+
+    // Convertir el objeto a formato JSON
+    const pedidoJSON = JSON.stringify(pedido);
+
+    // Guardar el JSON en localStorage:
+    localStorage.setItem("pedido", pedidoJSON);
+ 
 }
-actualizarMensaje();
 
-function correr(){
-    // CLASE PARA CREAR PRODUCTOS
-    class Producto {
-        constructor(nombre, precio){
-            this.nombre = nombre;
-            this.precio = precio;
-        }
-    };
+// Funcion a ejecutar cuando el usuario realiza el pedido
+function mostrarPedido () {
 
-    let producto1 = new Producto("Muzzarela", 100);
-    let producto2 = new Producto("Napolitana", 125);
-    let producto3 = new Producto("Provolone", 150);
-    let producto4 = new Producto("Agua", 30);
-    let producto5 = new Producto("Gaseosa", 40);
-    let producto6 = new Producto("Cerveza", 50);
-    let producto7 = new Producto("Helado", 60);
-    let producto8 = new Producto("Torta", 70);
-    let producto9 = new Producto("Flan", 80);
+    // Recuperar la cadena JSON del localStorage
+    const pedidoJSON = localStorage.getItem("pedido");
 
-    let productos = [producto1, producto2, producto3, producto4, producto5, producto6, producto7, producto8, producto9];
+    // Convierte la cadena JSON a un objeto
+    const pedido = JSON.parse(pedidoJSON);
 
-    let mensaje = "";
-    // Recorrer el array de productos y agregar la información de cada producto al string
-    productos.forEach(producto => {
-        mensaje += `Producto: ${producto.nombre} - Precio: $${producto.precio}\n`;
-    });
-    // Mostrar la información de todos los productos en un alert
-    alert(`Nuestra carta:\n${mensaje}`);
+    // Vincular la variable con la lista del HTML
+    const lista = document.getElementById("lista-pedido");
 
-    // Definir un array de carrito para almacenar los productos
-    let carrito = [];
+    // Crear los items de la lista con los datos captados
+    const pizzaItem = document.createElement("li");
+    pizzaItem.innerText = `Pizza: ${pedido.pizza}`;
 
-    let pedidoPizza = prompt(`Ingrese el sabor de la pizza que desea pedir:\n- ${producto1.nombre}\n- ${producto2.nombre}\n- ${producto3.nombre}`);
-    let precioPizza = Number(prompt("Ingrese el precio del producto:"));
+    const bebidaItem = document.createElement("li");
+    bebidaItem.innerText = `Bebida: ${pedido.bebida}`;
 
-    let nuevoProducto = {
-        nombre: pedidoPizza,
-        precio: parseFloat(precioPizza)
-    };
-    carrito.push(nuevoProducto);
+    const postreItem = document.createElement("li");
+    postreItem.innerText = `Postre: ${pedido.postre}`;
 
-    let pedidoBebida = prompt(`Ingrese la bebida que desea pedir:\n- ${producto4.nombre}\n- ${producto5.nombre}\n- ${producto6.nombre}`);
-    let precioBebida = Number(prompt("Ingrese el precio del producto:"));
-    let nuevoProducto2 = {
-        nombre: pedidoBebida,
-        precio: parseFloat(precioBebida)
-    };
-    carrito.push(nuevoProducto2);
+    //Agregar los items a la lista
+    lista.appendChild(pizzaItem);
+    lista.appendChild(bebidaItem);
+    lista.appendChild(postreItem);
+    
+}
 
-    let pedidoPostre = prompt(`Ingrese el postre que desea pedir:\n- ${producto7.nombre}\n- ${producto8.nombre}\n- ${producto9.nombre}`);
-    let precioPostre = Number(prompt("Ingrese el precio del producto:"));
-    let nuevoProducto3 = {
-        nombre: pedidoPostre,
-        precio: parseFloat(precioPostre)
-    };
-    carrito.push(nuevoProducto3);
+// Evento que se ejecuta cuando el usuario hace click en realizar pedido
+document.getElementById("form-pedido").addEventListener("submit", (event) => {
+    event.preventDefault();
+    guardarPedido();
+    mostrarPedido();
+});
 
+// Funcion a ejecutar cuando el usuario finaliza el pedido
+function finalizarPedido () {
+    const nombreUsuario = document.getElementById("nombre").value;
+    const mensajeFinal = document.getElementById("mensaje-final");
+    const mensaje = document.createElement("p");
+    mensaje.innerText = `Muchas gracias ${nombreUsuario} por su pedido. Nos pondremos en contacto a la brevedad para entregarle sus productos.`
+    mensajeFinal.appendChild(mensaje);
+}
 
-    let total = 0;
-    let mensajeCarrito = "";
+// Funcion para limpiar el localStorage una vez finalizado el pedido
+function limpiarStorage() {
+    localStorage.clear();
+}
 
-    // Recorrer el array carrito y agregar los datos de cada producto al mensajeCarrito
-    carrito.forEach(producto => {
-        mensajeCarrito += `Producto: ${producto.nombre} - Precio: $${producto.precio}\n`;
-    });
-    // Recorre el array "carrito" y suma los precios de los productos
-    carrito.forEach(producto => {
-        total += parseFloat(producto.precio);
-    });
-
-    // Muestra los productos del carrito y el total del pedido al usuario
-    document.write(`Productos en el carrito:<br>${mensajeCarrito}<br><br>`);
-    document.write(`El total del pedido es: $${total}`);
-};
+// Evento a ejectutar cuando el usuario hace click en finalizar pedido
+document.getElementById("finalizar-pedido").addEventListener("click", function(e) {
+    finalizarPedido();
+    limpiarStorage();
+});
