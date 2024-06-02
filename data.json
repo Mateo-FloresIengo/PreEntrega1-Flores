@@ -1,0 +1,58 @@
+[
+    {
+        "id": 1,
+        "nombre": "Pizza Muzzarella",
+        "precio": 600,
+        "img": "./img/pizza-muzza.png",
+        "cantidad": 1
+    },
+    {
+        "id": 2,
+        "nombre": "Pizza Napolitana",
+        "precio": 700,
+        "img": "./img/pizza-napo.jpeg",
+        "cantidad": 1
+    },
+    {
+        "id": 3,
+        "nombre": "Pizza Provolone",
+        "precio": 800,
+        "img": "./img/pizza-provo.webp",
+        "cantidad": 1
+    },
+    {
+        "id": 4,
+        "nombre": "Agua",
+        "precio": 100,
+        "img": "./img/agua.jpeg",
+        "cantidad": 1
+    },
+    {
+        "id": 5,
+        "nombre": "Coca Cola",
+        "precio": 200,
+        "img": "./img/coca-cola.jpeg",
+        "cantidad": 1
+    },
+    {
+        "id": 6,
+        "nombre": "Cerveza",
+        "precio": 300,
+        "img": "./img/cerveza.jpeg",
+        "cantidad": 1
+    },
+    {
+        "id": 7,
+        "nombre": "Helado",
+        "precio": 400,
+        "img": "./img/helado.webp",
+        "cantidad": 1
+    },
+    {
+        "id": 8,
+        "nombre": "Flan",
+        "precio": 450,
+        "img": "./img/flan.jpeg",
+        "cantidad": 1
+    }
+]
